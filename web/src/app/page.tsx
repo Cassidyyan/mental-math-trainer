@@ -124,6 +124,7 @@ export default function Home() {
   // Timer effect - runs when game is running
   useEffect(() => {
     if (gameState === "running") {
+      // setInterval runs the function every second
       timerRef.current = setInterval(() => {
         setTimeLeft((prev) => {
           if (prev <= 1) {
@@ -136,8 +137,9 @@ export default function Home() {
       }, 1000);
     }
 
-    // Cleanup timer on unmount or state change
+    // Cleanup timer on unmount or state change to prevent memory leaks
     return () => {
+      // Clear the timer if it exists
       if (timerRef.current) {
         clearInterval(timerRef.current);
         timerRef.current = null;
