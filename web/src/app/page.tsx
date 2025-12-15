@@ -1,18 +1,14 @@
-
-// FIle runs on the client side
 "use client";
 
-// React Hooks
 import { useState, useEffect } from "react";
 
-// Creating Problem Type Definition Object
-// Types are used to define the structure of data -- Self Note
+// Type Definitions
 type Problem = {
   left: number;
   right: number;
   operator: string;
   answer: number;
-}
+};
 
 type Mode = "add" | "subtract" | "multiply" | "mixed";
 
@@ -22,34 +18,34 @@ export default function Home() {
   const [mode, setMode] = useState<Mode>("add");
   const [problem, setProblem] = useState<Problem>({
     left: 0,
-    right: 0 ,
+    right: 0,
     operator: "+",
-    answer: 0
+    answer: 0,
   });
   const [answer, setAnswer] = useState("");
   const [correct, setCorrect] = useState(0);
   const [total, setTotal] = useState(0);
 
-  // Problem generator function
+  // Generate problem based on mode
   function generateProblem(currentMode: Mode): Problem {
     let left = Math.floor(Math.random() * 10);
     let right = Math.floor(Math.random() * 10);
     let operator = "+";
     let ans = 0;
 
-    // switching based on mode
     switch (currentMode) {
       case "add":
         operator = "+";
         ans = left + right;
         break;
       case "subtract":
+        // Ensure no negative results
         if (left < right) [left, right] = [right, left];
         operator = "-";
         ans = left - right;
         break;
       case "multiply":
-        operator = "x";
+        operator = "×";
         ans = left * right;
         break;
       case "mixed":
@@ -57,7 +53,7 @@ export default function Home() {
         const randomMode = modes[Math.floor(Math.random() * modes.length)];
         return generateProblem(randomMode);
     }
-    return { left, right, operator, answer: ans}
+    return { left, right, operator, answer: ans };
   }
 
   // Generate a new problem
@@ -72,10 +68,8 @@ export default function Home() {
   // Handle answer input and check correctness
   function handleAnswer(value: string) {
     setAnswer(value);
-    
-    // Check if the answer is correct
+
     if (parseInt(value) === problem.answer) {
-      // Update score
       setCorrect((prev) => prev + 1);
       setTotal((prev) => prev + 1);
       setAnswer("");
@@ -83,14 +77,13 @@ export default function Home() {
     }
   }
 
-  // Handle mode change and generate new problem immediately
+  // Change mode and generate new problem
   function changeMode(newMode: Mode) {
     setMode(newMode);
     setProblem(generateProblem(newMode));
     setAnswer("");
   }
 
-  // Main Render
   return (
     <main className="flex flex-col items-center justify-center min-h-screen gap-6 p-6 bg-gray-900 text-white">
       <h1 className="text-4xl font-bold">Mental Math Trainer</h1>
