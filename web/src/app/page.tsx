@@ -73,12 +73,29 @@ export default function Home() {
     setProblem(generateProblem(mode));
   }
 
-  useEffect(() => {
+  // Start the timed test session
+  function startTest() {
+    setGameState("running");
+    setTimeLeft(duration);
+    setCorrect(0);
+    setTotal(0);
+    setAnswer("");
     newProblem();
-  }, []);
+  }
+
+  // Restart the test session
+  function restartTest() {
+    setGameState("idle");
+    setTimeLeft(duration);
+    setCorrect(0);
+    setTotal(0);
+    setAnswer("");
+  }
 
   // Handle answer input and check correctness
   function handleAnswer(value: string) {
+    if (gameState !== "running") return;
+
     setAnswer(value);
 
     if (parseInt(value) === problem.answer) {
@@ -91,10 +108,15 @@ export default function Home() {
 
   // Change mode and generate new problem
   function changeMode(newMode: Mode) {
+    if (gameState !== "idle") return;
     setMode(newMode);
     setProblem(generateProblem(newMode));
     setAnswer("");
   }
+
+    useEffect(() => {
+      newProblem();
+  }, []);
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen gap-6 p-6 bg-gray-900 text-white">
