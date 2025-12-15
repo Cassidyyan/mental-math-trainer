@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 // Type Definitions
 type Problem = {
@@ -11,9 +11,16 @@ type Problem = {
 };
 
 type Mode = "add" | "subtract" | "multiply" | "mixed";
+type GameState = "idle" | "running" | "finished";
+type Duration = 15 | 30 | 60;
 
 // Main Component
 export default function Home() {
+  // Game State Variables
+  const [gameState, setGameState] = useState<GameState>("idle");
+  const [duration, setDuration] = useState<Duration>(30);
+  const [timeLeft, setTimeLeft] = useState<number>(duration);
+
   // State Variables for the Math Problem and Scoring
   const [mode, setMode] = useState<Mode>("add");
   const [problem, setProblem] = useState<Problem>({
@@ -23,8 +30,13 @@ export default function Home() {
     answer: 0,
   });
   const [answer, setAnswer] = useState("");
+
+  // Session Stats
   const [correct, setCorrect] = useState(0);
   const [total, setTotal] = useState(0);
+  
+  // Timer reference for session
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   // Generate problem based on mode
   function generateProblem(currentMode: Mode): Problem {
