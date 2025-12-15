@@ -5,14 +5,13 @@
 // React Hooks
 import { useState, useEffect } from "react";
 
-// Creating Problem Type Definition Object
-// Types are used to define the structure of data -- Self Note
+// Problem Type Definition
 type Problem = {
   left: number;
   right: number;
   operator: string;
   answer: number;
-}
+};
 
 type Mode = "add" | "subtract" | "multiply" | "mixed";
 
@@ -22,9 +21,9 @@ export default function Home() {
   const [mode, setMode] = useState<Mode>("add");
   const [problem, setProblem] = useState<Problem>({
     left: 0,
-    right: 0 ,
+    right: 0,
     operator: "+",
-    answer: 0
+    answer: 0,
   });
   const [answer, setAnswer] = useState("");
   const [correct, setCorrect] = useState(0);
@@ -32,32 +31,36 @@ export default function Home() {
 
   // Problem generator function
   function generateProblem(currentMode: Mode): Problem {
+    // For now, we'll implement just addition
+    // We'll expand this in the next steps
     let left = Math.floor(Math.random() * 10);
     let right = Math.floor(Math.random() * 10);
     let operator = "+";
     let ans = 0;
 
-    // switching based on mode
     switch (currentMode) {
       case "add":
         operator = "+";
         ans = left + right;
         break;
       case "subtract":
+        // Ensure no negative results: make left >= right
         if (left < right) [left, right] = [right, left];
         operator = "-";
         ans = left - right;
         break;
       case "multiply":
-        operator = "x";
+        operator = "×";
         ans = left * right;
         break;
       case "mixed":
+        // Randomly choose between add, subtract, multiply
         const modes: Mode[] = ["add", "subtract", "multiply"];
         const randomMode = modes[Math.floor(Math.random() * modes.length)];
         return generateProblem(randomMode);
     }
-    return { left, right, operator, answer: ans}
+
+    return { left, right, operator, answer: ans };
   }
 
   // Generate a new problem
@@ -72,24 +75,14 @@ export default function Home() {
   // Handle answer input and check correctness
   function handleAnswer(value: string) {
     setAnswer(value);
-    
-    // Check if the answer is correct
+
     if (parseInt(value) === problem.answer) {
-      // Update score
       setCorrect((prev) => prev + 1);
       setTotal((prev) => prev + 1);
       setAnswer("");
       newProblem();
     }
   }
-
-  // Handle mode change and generate new problem immediately
-  function changeMode(newMode: Mode) {
-    setMode(newMode);
-    setProblem(generateProblem(newMode));
-    setAnswer("");
-  }
-
   // Main Render
   return (
     <main className="flex flex-col items-center justify-center min-h-screen gap-6 p-6 bg-gray-900 text-white">
@@ -98,7 +91,7 @@ export default function Home() {
       {/* Mode Selection */}
       <div className="flex gap-3">
         <button
-          onClick={() => changeMode("add")}
+          onClick={() => setMode("add")}
           className={`px-4 py-2 rounded-md font-semibold ${
             mode === "add" ? "bg-blue-600" : "bg-gray-700"
           }`}
@@ -106,7 +99,7 @@ export default function Home() {
           Addition
         </button>
         <button
-          onClick={() => changeMode("subtract")}
+          onClick={() => setMode("subtract")}
           className={`px-4 py-2 rounded-md font-semibold ${
             mode === "subtract" ? "bg-blue-600" : "bg-gray-700"
           }`}
@@ -114,7 +107,7 @@ export default function Home() {
           Subtraction
         </button>
         <button
-          onClick={() => changeMode("multiply")}
+          onClick={() => setMode("multiply")}
           className={`px-4 py-2 rounded-md font-semibold ${
             mode === "multiply" ? "bg-blue-600" : "bg-gray-700"
           }`}
@@ -122,7 +115,7 @@ export default function Home() {
           Multiplication
         </button>
         <button
-          onClick={() => changeMode("mixed")}
+          onClick={() => setMode("mixed")}
           className={`px-4 py-2 rounded-md font-semibold ${
             mode === "mixed" ? "bg-blue-600" : "bg-gray-700"
           }`}
