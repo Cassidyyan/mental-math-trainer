@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { Problem, Mode, Difficulty, GameState, Duration } from "./lib/types";
 import { generateProblem } from "./lib/problemGenerator";
 import { calculateAccuracy, calculatePPM } from "./lib/utils";
-import { start } from "repl";
+import { getButtonClass } from "./lib/styleHelpers";
 
 // Main Component
 export default function Home() {
@@ -202,44 +202,16 @@ export default function Home() {
             
             {/* Mode Row */}
             <div className="flex items-center justify-center gap-3 flex-wrap">
-              <button
-                onClick={() => changeMode("add")}
-                className={`px-4 py-2 rounded transition-all duration-150 ${
-                  mode === "add" 
-                    ? "bg-[#e2b714] text-[#323437] font-medium" 
-                    : "bg-transparent text-[#646669] opacity-60 hover:opacity-80"
-                }`}
-              >
+              <button onClick={() => changeMode("add")} className={getButtonClass(mode === "add")}>
                 + addition
               </button>
-              <button
-                onClick={() => changeMode("subtract")}
-                className={`px-4 py-2 rounded transition-all duration-150 ${
-                  mode === "subtract" 
-                    ? "bg-[#e2b714] text-[#323437] font-medium" 
-                    : "bg-transparent text-[#646669] opacity-60 hover:opacity-80"
-                }`}
-              >
+              <button onClick={() => changeMode("subtract")} className={getButtonClass(mode === "subtract")}>
                 - subtraction
               </button>
-              <button
-                onClick={() => changeMode("multiply")}
-                className={`px-4 py-2 rounded transition-all duration-150 ${
-                  mode === "multiply" 
-                    ? "bg-[#e2b714] text-[#323437] font-medium" 
-                    : "bg-transparent text-[#646669] opacity-60 hover:opacity-80"
-                }`}
-              >
+              <button onClick={() => changeMode("multiply")} className={getButtonClass(mode === "multiply")}>
                 × multiplication
               </button>
-              <button
-                onClick={() => changeMode("mixed")}
-                className={`px-4 py-2 rounded transition-all duration-150 ${
-                  mode === "mixed" 
-                    ? "bg-[#e2b714] text-[#323437] font-medium" 
-                    : "bg-transparent text-[#646669] opacity-60 hover:opacity-80"
-                }`}
-              >
+              <button onClick={() => changeMode("mixed")} className={getButtonClass(mode === "mixed")}>
                 ∞ mixed
               </button>
             </div>
@@ -249,67 +221,25 @@ export default function Home() {
 
             {/* Difficulty & Duration Row */}
             <div className="flex items-center justify-center gap-3 flex-wrap">
-              <button
-                onClick={() => changeDifficultyLevel("easy")}
-                className={`px-4 py-2 rounded transition-all duration-150 ${
-                  difficulty === "easy" 
-                    ? "bg-[#e2b714] text-[#323437] font-medium" 
-                    : "bg-transparent text-[#646669] opacity-60 hover:opacity-80"
-                }`}
-              >
+              <button onClick={() => changeDifficultyLevel("easy")} className={getButtonClass(difficulty === "easy")}>
                 easy
               </button>
-              <button
-                onClick={() => changeDifficultyLevel("medium")}
-                className={`px-4 py-2 rounded transition-all duration-150 ${
-                  difficulty === "medium" 
-                    ? "bg-[#e2b714] text-[#323437] font-medium" 
-                    : "bg-transparent text-[#646669] opacity-60 hover:opacity-80"
-                }`}
-              >
+              <button onClick={() => changeDifficultyLevel("medium")} className={getButtonClass(difficulty === "medium")}>
                 medium
               </button>
-              <button
-                onClick={() => changeDifficultyLevel("hard")}
-                className={`px-4 py-2 rounded transition-all duration-150 ${
-                  difficulty === "hard" 
-                    ? "bg-[#e2b714] text-[#323437] font-medium" 
-                    : "bg-transparent text-[#646669] opacity-60 hover:opacity-80"
-                }`}
-              >
+              <button onClick={() => changeDifficultyLevel("hard")} className={getButtonClass(difficulty === "hard")}>
                 hard
               </button>
 
               <div className="w-px h-6 bg-white/10 mx-2"></div>
 
-              <button
-                onClick={() => changeDuration(15)}
-                className={`px-3 py-2 rounded transition-all duration-150 ${
-                  duration === 15 
-                    ? "bg-[#e2b714] text-[#323437] font-medium" 
-                    : "bg-transparent text-[#646669] opacity-60 hover:opacity-80"
-                }`}
-              >
+              <button onClick={() => changeDuration(15)} className={getButtonClass(duration === 15)}>
                 15
               </button>
-              <button
-                onClick={() => changeDuration(30)}
-                className={`px-3 py-2 rounded transition-all duration-150 ${
-                  duration === 30 
-                    ? "bg-[#e2b714] text-[#323437] font-medium" 
-                    : "bg-transparent text-[#646669] opacity-60 hover:opacity-80"
-                }`}
-              >
+              <button onClick={() => changeDuration(30)} className={getButtonClass(duration === 30)}>
                 30
               </button>
-              <button
-                onClick={() => changeDuration(60)}
-                className={`px-3 py-2 rounded transition-all duration-150 ${
-                  duration === 60 
-                    ? "bg-[#e2b714] text-[#323437] font-medium" 
-                    : "bg-transparent text-[#646669] opacity-60 hover:opacity-80"
-                }`}
-              >
+              <button onClick={() => changeDuration(60)} className={getButtonClass(duration === 60)}>
                 60
               </button>
             </div>
