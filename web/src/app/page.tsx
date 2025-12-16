@@ -1,18 +1,9 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-
-// Type Definitions
-type Problem = {
-  left: number;
-  right: number;
-  operator: string;
-  answer: number;
-};
-
-type Mode = "add" | "subtract" | "multiply" | "mixed";
-type GameState = "idle" | "running" | "finished";
-type Duration = 15 | 30 | 60;
+import { Problem, Mode, GameState, Duration } from "./types";
+import { generateProblem } from "./problemGenerator";
+import { calculateAccuracy, calculatePPM } from "./utils";
 
 // Main Component
 export default function Home() {
@@ -37,36 +28,6 @@ export default function Home() {
   
   // Timer reference for session
   const timerRef = useRef<NodeJS.Timeout | null>(null);
-
-  // Generate problem based on mode
-  function generateProblem(currentMode: Mode): Problem {
-    let left = Math.floor(Math.random() * 10);
-    let right = Math.floor(Math.random() * 10);
-    let operator = "+";
-    let ans = 0;
-
-    switch (currentMode) {
-      case "add":
-        operator = "+";
-        ans = left + right;
-        break;
-      case "subtract":
-        // Ensure no negative results
-        if (left < right) [left, right] = [right, left];
-        operator = "-";
-        ans = left - right;
-        break;
-      case "multiply":
-        operator = "×";
-        ans = left * right;
-        break;
-      case "mixed":
-        const modes: Mode[] = ["add", "subtract", "multiply"];
-        const randomMode = modes[Math.floor(Math.random() * modes.length)];
-        return generateProblem(randomMode);
-    }
-    return { left, right, operator, answer: ans };
-  }
 
   // Generate a new problem
   function newProblem() {
@@ -98,9 +59,19 @@ export default function Home() {
 
     setAnswer(value);
 
-    if (parseInt(value) === problem.answer) {
-      setCorrect((prev) => prev + 1);
+    const userAnswer = parseInt(value);
+    const correctAnswer = problem.answer;
+    
+    // Check if user typed a complete answer (matching digit count or clearly complete)
+    const isComplete = value.length >= correctAnswer.toString().length;
+    
+    if (isComplete && !isNaN(userAnswer)) {
       setTotal((prev) => prev + 1);
+      
+      if (userAnswer === correctAnswer) {
+        setCorrect((prev) => prev + 1);
+      }
+      
       setAnswer("");
       newProblem();
     }
@@ -148,9 +119,9 @@ export default function Home() {
   }, [gameState]);
 
   // Stats from Session Data
-  const accuracy = total > 0 ? Math.round((correct / total) * 100) : 0;
+  const accuracy = calculateAccuracy(correct, total);
   const elapsedSeconds = duration - timeLeft;
-  const ppm = elapsedSeconds > 0 ? ((total / elapsedSeconds) * 60).toFixed(1) : "0.0";
+  const ppm = calculatePPM(total, elapsedSeconds);
 
   // RENDER: Idle State (Setup Screen)
   if (gameState === "idle") {
