@@ -141,7 +141,7 @@ export default function Home() {
     };
   }, [gameState]);
 
-  // Escape key to return to main menu, F key for dev shortcut to results
+  // Escape key to return to main menu, F key for dev shortcut to results, Tab to skip
   useEffect(() => {
     function handleEscapeKey(e: KeyboardEvent) {
       if (e.key === "Escape" && gameState === "running") {
@@ -150,6 +150,14 @@ export default function Home() {
       // Developer shortcut: F key to jump to results screen
       if (e.key === "f" && gameState === "running") {
         setGameState("finished");
+      }
+      // Tab key to skip current problem
+      if (e.key === "Tab" && gameState === "running") {
+        e.preventDefault();
+        setTotal((prev) => prev + 1);
+        setAnswer("");
+        setFeedback(null);
+        newProblem();
       }
     }
 
@@ -318,9 +326,10 @@ export default function Home() {
 
         </div>
 
-        {/* Hint */}
-        <div className="absolute bottom-8 text-xs text-[#646669] opacity-50 tracking-widest">
-          esc to exit
+        {/* Hints */}
+        <div className="absolute bottom-8 text-xs text-[#646669] opacity-50 tracking-widest text-center">
+          <div>tab - skip problem</div>
+          <div>esc - exit</div>
         </div>
       </main>
     );
