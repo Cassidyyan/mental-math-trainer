@@ -220,7 +220,9 @@ export function GameContainer() {
 
           {/* Instruction Text */}
           <div className="text-center">
-            <p className="text-xs text-[#a1a3a4] opacity-60 tracking-widest">press enter or space to start</p>
+            <p className="text-xs text-[#a1a3a4] opacity-60 tracking-widest">press 
+                <span className="bg-[#a1a3a4]/10 px-2 py-0.5 rounded">enter</span> or 
+                <span className="bg-[#a1a3a4]/10 px-2 py-0.5 rounded">space</span> to start</p>
           </div>
           
         </div>
@@ -257,10 +259,18 @@ export function GameContainer() {
         </div>
 
         {/* Hints */}
-        <div className="absolute bottom-8 text-xs text-[#a1a3a4] opacity-50 tracking-widest text-center">
-          <div>F - finish test</div>
-          <div>tab - skip problem</div>
-          <div>esc - exit</div>
+        <div className="absolute bottom-8 text-xs text-[#a1a3a4] opacity-50 text-center space-y-1">
+          <div className="flex justify-center gap-8">
+            <div>
+            <span className="bg-[#a1a3a4]/10 px-2 py-1 rounded">tab</span> - skip problem
+            </div>
+            <span>
+              <span className="bg-[#a1a3a4]/10 px-2 py-1 rounded">F</span> - finish test
+            </span>
+            <span>
+              <span className="bg-[#a1a3a4]/10 px-2 py-1 rounded">esc</span> - exit
+            </span>
+          </div>
         </div>
       </main>
     );
@@ -287,9 +297,17 @@ export function GameContainer() {
             ppm={ppm}
           />
 
-          {/* Instruction Text */}
-          <div className="text-center">
-            <p className="text-xs text-[#a1a3a4] opacity-70 tracking-widest">press enter or space to continue</p>
+          {/* Instruction Text with subtle pulse animation */}
+          <div className="text-center space-y-3">
+            <button
+              onClick={restartTest}
+              className="px-6 py-2 bg-transparent border border-[#a1a3a4]/20 text-[#a1a3a4] rounded-lg hover:border-[#a1a3a4]/40 hover:bg-[#a1a3a4]/5 transition-all duration-200 text-sm"
+            >
+              Restart Test
+            </button>
+            <p className="text-xs text-[#a1a3a4] opacity-50 tracking-widest animate-pulse">
+              press <span className="bg-[#a1a3a4]/10 px-2 py-0.5 rounded">enter</span> or <span className="bg-[#a1a3a4]/10 px-2 py-0.5 rounded">space</span>
+            </p>
           </div>
 
         </div>
