@@ -220,7 +220,7 @@ export function GameContainer() {
 
           {/* Instruction Text */}
           <div className="text-center">
-            <p className="text-xs text-[#646669] opacity-60 tracking-widest">press enter or space to start</p>
+            <p className="text-xs text-[#a1a3a4] opacity-60 tracking-widest">press enter or space to start</p>
           </div>
           
         </div>
@@ -257,7 +257,7 @@ export function GameContainer() {
         </div>
 
         {/* Hints */}
-        <div className="absolute bottom-8 text-xs text-[#646669] opacity-50 tracking-widest text-center">
+        <div className="absolute bottom-8 text-xs text-[#a1a3a4] opacity-50 tracking-widest text-center">
           <div>F - finish test</div>
           <div>tab - skip problem</div>
           <div>esc - exit</div>
@@ -289,7 +289,7 @@ export function GameContainer() {
 
           {/* Instruction Text */}
           <div className="text-center">
-            <p className="text-xs text-[#646669] opacity-70 tracking-widest">press enter or space to continue</p>
+            <p className="text-xs text-[#a1a3a4] opacity-70 tracking-widest">press enter or space to continue</p>
           </div>
 
         </div>

@@ -21,7 +21,7 @@ export function Controls({
   return (
     <div className="space-y-5">
       {/* Mode Row */}
-      <div className="flex items-center justify-center gap-3 flex-wrap">
+      <div className="flex items-center justify-center gap-3 flex-wrap text">
         <button onClick={() => onModeChange("add")} className={getButtonClass(mode === "add")}>
           + addition
         </button>
