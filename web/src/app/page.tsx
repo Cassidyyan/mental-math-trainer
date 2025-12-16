@@ -57,13 +57,12 @@ export default function Home() {
   // Handle answer input and check correctness
   function handleAnswer(value: string) {
     if (gameState !== "running") return;
-
     setAnswer(value);
 
     const userAnswer = parseInt(value);
     const correctAnswer = problem.answer;
     
-    // Check if user typed a complete answer (matching digit count or clearly complete)
+    // Auto-submit when user types enough digits
     const isComplete = value.length >= correctAnswer.toString().length;
     
     if (isComplete && !isNaN(userAnswer)) {
@@ -121,6 +120,19 @@ export default function Home() {
         timerRef.current = null;
       }
     };
+  }, [gameState]);
+
+  // Escape key to return to main menu
+  useEffect(() => {
+    // Handler for Escape key
+    function handleEscapeKey(e: KeyboardEvent) {
+      if (e.key === "Escape" && gameState === "running") {
+        restartTest();
+      }
+    }
+    
+    window.addEventListener("keydown", handleEscapeKey);
+    return () => window.removeEventListener("keydown", handleEscapeKey);
   }, [gameState]);
 
   // Stats from Session Data
