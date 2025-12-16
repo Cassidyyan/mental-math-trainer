@@ -96,7 +96,7 @@ export default function Home() {
     setTimeLeft(newDuration);
   }
 
-  // Timer effect - runs when game is running
+  // Timer effect
   useEffect(() => {
     if (gameState === "running") {
       // setInterval runs the function every second
@@ -112,7 +112,7 @@ export default function Home() {
       }, 1000);
     }
 
-    // Cleanup timer on unmount or state change to prevent memory leaks
+    // Cleanup timer to prevent memory leaks
     return () => {
       // Clear the timer if it exists
       if (timerRef.current) {
@@ -124,13 +124,12 @@ export default function Home() {
 
   // Escape key to return to main menu
   useEffect(() => {
-    // Handler for Escape key
     function handleEscapeKey(e: KeyboardEvent) {
       if (e.key === "Escape" && gameState === "running") {
         restartTest();
       }
     }
-    
+
     window.addEventListener("keydown", handleEscapeKey);
     return () => window.removeEventListener("keydown", handleEscapeKey);
   }, [gameState]);
