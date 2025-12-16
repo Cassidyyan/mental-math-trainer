@@ -1,9 +1,9 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { Problem, Mode, GameState, Duration } from "./types";
-import { generateProblem } from "./problemGenerator";
-import { calculateAccuracy, calculatePPM } from "./utils";
+import { Problem, Mode, Difficulty, GameState, Duration } from "./lib/types";
+import { generateProblem } from "./lib/problemGenerator";
+import { calculateAccuracy, calculatePPM } from "./lib/utils";
 
 // Main Component
 export default function Home() {
@@ -14,6 +14,7 @@ export default function Home() {
 
   // State Variables for the Math Problem and Scoring
   const [mode, setMode] = useState<Mode>("add");
+  const [difficulty, setDifficulty] = useState<Difficulty>("easy");
   const [problem, setProblem] = useState<Problem>({
     left: 0,
     right: 0,
@@ -29,9 +30,9 @@ export default function Home() {
   // Timer reference for session
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Generate a new problem
+  // Generate a new problem (now uses difficulty)
   function newProblem() {
-    setProblem(generateProblem(mode));
+    setProblem(generateProblem(mode, difficulty));
   }
 
   // Start the timed test session
@@ -77,12 +78,16 @@ export default function Home() {
     }
   }
 
-  // Change mode and generate new problem
+  // Change mode (only allowed when idle)
   function changeMode(newMode: Mode) {
     if (gameState !== "idle") return;
     setMode(newMode);
-    setProblem(generateProblem(newMode));
-    setAnswer("");
+  }
+
+  // Change difficulty (only allowed when idle)
+  function changeDifficultyLevel(newDifficulty: Difficulty) {
+    if (gameState !== "idle") return;
+    setDifficulty(newDifficulty);
   }
 
   // Change duration (only allowed when idle)
@@ -165,6 +170,37 @@ export default function Home() {
               }`}
             >
               Mixed
+            </button>
+          </div>
+        </div>
+
+        {/* Difficulty Selection */}
+        <div>
+          <h2 className="text-xl font-semibold mb-3 text-center">Difficulty</h2>
+          <div className="flex gap-3">
+            <button
+              onClick={() => changeDifficultyLevel("easy")}
+              className={`px-6 py-2 rounded-md font-semibold ${
+                difficulty === "easy" ? "bg-purple-600" : "bg-gray-700"
+              }`}
+            >
+              Easy
+            </button>
+            <button
+              onClick={() => changeDifficultyLevel("medium")}
+              className={`px-6 py-2 rounded-md font-semibold ${
+                difficulty === "medium" ? "bg-purple-600" : "bg-gray-700"
+              }`}
+            >
+              Medium
+            </button>
+            <button
+              onClick={() => changeDifficultyLevel("hard")}
+              className={`px-6 py-2 rounded-md font-semibold ${
+                difficulty === "hard" ? "bg-purple-600" : "bg-gray-700"
+              }`}
+            >
+              Hard
             </button>
           </div>
         </div>
