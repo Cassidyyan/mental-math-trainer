@@ -205,7 +205,7 @@ export function GameContainer() {
           
           {/* Header */}
           <div className="text-center">
-            <h1 className="text-5xl font-medium tracking-wide text-[#d1d0c5]">mental math trainer</h1>
+            <h1 className="text-5xl font-medium tracking-wide text-[#d1d0c5]">MindMath</h1>
           </div>
 
           {/* Configuration Block */}
@@ -280,11 +280,11 @@ export function GameContainer() {
   if (gameState === "finished") {
     return (
       <main className="flex flex-col items-center justify-center min-h-screen p-8 bg-[#323437]">
-        <div className="w-full max-w-2xl space-y-16">
+        <div className="w-full max-w-2xl space-y-10">
           
           {/* Header */}
           <div className="text-center">
-            <h1 className="text-4xl font-medium text-[#d1d0c5]">test complete</h1>
+            <h1 className="text-4xl font-medium text-[#d1d0c5]">TEST COMPLETE</h1>
           </div>
 
           {/* Stats */}
@@ -296,6 +296,12 @@ export function GameContainer() {
             accuracy={accuracy}
             ppm={ppm}
           />
+
+          {/* Test Settings */}
+          <div className="text-center text-sm text-[#a1a3a4] opacity-50 uppercase tracking-wider">
+            {mode === "add" ? "Addition" : mode === "subtract" ? "Subtraction" : mode === "multiply" ? "Multiplication" : "Mixed"} | 
+            {difficulty.charAt(0).toUpperCase() + difficulty.slice(1)} | {duration}s
+          </div>
 
           {/* Instruction Text with subtle pulse animation */}
           <div className="text-center space-y-3">
