@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { Problem, Mode, Difficulty, GameState, Duration } from "./lib/types";
 import { generateProblem } from "./lib/problemGenerator";
 import { calculateAccuracy, calculatePPM } from "./lib/utils";
+import { start } from "repl";
 
 // Main Component
 export default function Home() {
@@ -178,7 +179,7 @@ export default function Home() {
 
     window.addEventListener("keydown", handleKeyPress);
     return () => window.removeEventListener("keydown", handleKeyPress);
-  }, [gameState]);
+  }, [gameState, mode, difficulty, duration]);
 
   // Stats from Session Data
   const accuracy = calculateAccuracy(correct, total);
