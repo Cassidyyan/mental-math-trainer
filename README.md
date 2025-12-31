@@ -2,7 +2,7 @@
 
 A web-based mental math training app inspired by MonkeyType, built with Next.js. Practice addition, subtraction, and multiplication with timed sessions and track your progress over time.
 
-## ✨ Features
+## Features
 
 - **Multiple Math Modes**: Addition, Subtraction, Multiplication, and Mixed
 - **Three Difficulty Levels**: Easy, Medium, and Hard
@@ -13,7 +13,7 @@ A web-based mental math training app inspired by MonkeyType, built with Next.js.
 - **Google Authentication**: Sign in to save your sessions
 - **Responsive Design**: Works on desktop, tablet, and mobile
 
-## 🚀 Tech Stack
+## Tech Stack
 
 - **Next.js 16** - React framework
 - **TypeScript** - Type safety
@@ -21,7 +21,7 @@ A web-based mental math training app inspired by MonkeyType, built with Next.js.
 - **Supabase** - Database and authentication
 - **Recharts** - Data visualization
 
-## 📦 Quick Start
+## Quick Start
 
 1. **Clone and install**
    ```bash
@@ -74,7 +74,7 @@ A web-based mental math training app inspired by MonkeyType, built with Next.js.
    ```
    Open [http://localhost:3000](http://localhost:3000)
 
-## 🎮 How to Use
+## How to Use
 
 1. Select your preferences (mode, difficulty, duration)
 2. Press `Enter` or `Space` to start
@@ -86,7 +86,7 @@ A web-based mental math training app inspired by MonkeyType, built with Next.js.
 - `F` - Finish test early
 - `Esc` - Exit to menu
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 web/
@@ -103,7 +103,7 @@ web/
 │       └── ...               # UI components
 ```
 
-## 🎨 Design
+## Design
 
 Minimalist dark theme inspired by MonkeyType with:
 - Clean typography
@@ -111,7 +111,7 @@ Minimalist dark theme inspired by MonkeyType with:
 - Smooth animations
 - Keyboard-first navigation
 
-## 📝 Notes
+## Notes
 
 This is a student project created to learn:
 - Full-stack web development with Next.js
@@ -119,11 +119,7 @@ This is a student project created to learn:
 - Real-time data visualization
 - Responsive design principles
 
-## 🙏 Credits
+## Credits
 
 - Inspired by [MonkeyType](https://monkeytype.com/)
 - Built with [Next.js](https://nextjs.org/), [Supabase](https://supabase.com/), and [Tailwind CSS](https://tailwindcss.com/)
-
----
-
-Made by a student learning web development 🎓
