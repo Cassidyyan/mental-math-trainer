@@ -86,7 +86,9 @@ export function StatsPanel({
         {/* Primary Stats - Accuracy larger, PPM smaller */}
         <div className="grid grid-cols-2 gap-16 max-w-lg mx-auto">
           <div className="text-center space-y-2">
-            <div className={`text-7xl font-medium tabular-nums ${getAccuracyColor()}`}>{accuracy}%</div>
+            <div className={`text-7xl font-medium tabular-nums ${getAccuracyColor()}`}>
+              {accuracyNum === 100 ? '100' : accuracy}%
+            </div>
             <div className="text-xs uppercase tracking-widest text-[#a1a3a4] opacity-70">accuracy</div>
           </div>
           <div className="text-center space-y-2">

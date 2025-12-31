@@ -4,13 +4,18 @@ import { useState, useEffect, useRef } from "react";
 import { Problem, Mode, Difficulty, GameState, Duration } from "@/app/lib/types";
 import { generateProblem } from "@/app/lib/problemGenerator";
 import { calculateAccuracy, calculatePPM } from "@/app/lib/utils";
+import { saveSession } from "@/app/lib/db/sessions";
 import { Controls } from "./Controls";
 import { ProblemDisplay } from "./ProblemDisplay";
 import { AnswerInput } from "./AnswerInput";
 import { StatsPanel } from "./StatsPanel";
 import { Timer } from "./Timer";
+import { SessionHistory } from "./SessionHistory";
 
 export function GameContainer() {
+  // View State
+  const [view, setView] = useState<"game" | "history">("game");
+  
   // Game State Variables
   const [gameState, setGameState] = useState<GameState>("idle");
   const [duration, setDuration] = useState<Duration>(30);
@@ -30,6 +35,7 @@ export function GameContainer() {
   // Session Stats
   const [correct, setCorrect] = useState(0);
   const [total, setTotal] = useState(0);
+  const [skipped, setSkipped] = useState(false);
   
   // Visual Feedback State
   const [feedback, setFeedback] = useState<"correct" | "incorrect" | null>(null);
@@ -53,6 +59,7 @@ export function GameContainer() {
     setTimeLeft(duration);
     setCorrect(0);
     setTotal(0);
+    setSkipped(false);
     setAnswer("");
     setFeedback(null);
   }
@@ -63,6 +70,7 @@ export function GameContainer() {
     setTimeLeft(duration);
     setCorrect(0);
     setTotal(0);
+    setSkipped(false);
     setAnswer("");
     setFeedback(null);
   }
@@ -152,6 +160,7 @@ export function GameContainer() {
       }
       // Developer shortcut: F key to jump to results screen
       if (e.key === "f" && gameState === "running") {
+        setSkipped(true);
         setGameState("finished");
       }
       // Tab key to skip current problem
@@ -197,8 +206,54 @@ export function GameContainer() {
   const elapsedSeconds = duration - timeLeft;
   const ppm = calculatePPM(total, elapsedSeconds);
 
+  // Save session when game finishes
+  useEffect(() => {
+    async function persistSession() {
+      if (gameState === "finished" && total > 0) {
+        await saveSession({
+          mode,
+          difficulty,
+          duration,
+          correct,
+          total,
+          accuracy,
+          ppm,
+          skipped,
+        });
+      }
+    }
+    
+    persistSession();
+  }, [gameState, mode, difficulty, duration, correct, total, accuracy, ppm, skipped]);
+
   // RENDER: Idle State (Setup Screen)
   if (gameState === "idle") {
+    // Show history view
+    if (view === "history") {
+      return (
+        <main className="flex flex-col items-center justify-center min-h-screen p-8 bg-[#323437] text-gray-100">
+          <div className="w-full max-w-4xl space-y-12">
+            
+            {/* Header with back button */}
+            <div className="flex items-center justify-between">
+              <h1 className="text-4xl font-medium tracking-wide text-[#d1d0c5]">Session History</h1>
+              <button
+                onClick={() => setView("game")}
+                className="px-4 py-2 bg-transparent border border-[#a1a3a4]/20 text-[#a1a3a4] rounded hover:border-[#a1a3a4]/40 hover:bg-[#a1a3a4]/5 transition-all duration-200 text-sm"
+              >
+                Back to Game
+              </button>
+            </div>
+
+            {/* Session History Component */}
+            <SessionHistory />
+
+          </div>
+        </main>
+      );
+    }
+    
+    // Show game setup view
     return (
       <main className="flex flex-col items-center justify-center min-h-screen p-8 bg-[#323437] text-gray-100">
         <div className="w-full max-w-4xl space-y-20">
@@ -219,10 +274,16 @@ export function GameContainer() {
           />
 
           {/* Instruction Text */}
-          <div className="text-center">
+          <div className="text-center space-y-4">
             <p className="text-xs text-[#a1a3a4] opacity-60 tracking-widest">press 
                 <span className="bg-[#a1a3a4]/10 px-2 py-0.5 rounded">enter</span> or 
                 <span className="bg-[#a1a3a4]/10 px-2 py-0.5 rounded">space</span> to start</p>
+            <button
+              onClick={() => setView("history")}
+              className="text-xs px-4 py-2 bg-transparent border border-[#a1a3a4]/20 text-[#a1a3a4] rounded hover:border-[#a1a3a4]/40 hover:bg-[#a1a3a4]/5 transition-all duration-200"
+            >
+              View History
+            </button>
           </div>
           
         </div>
