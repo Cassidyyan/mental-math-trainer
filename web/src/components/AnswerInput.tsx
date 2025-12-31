@@ -23,7 +23,7 @@ export function AnswerInput({ value, onChange, inputRef, feedback }: AnswerInput
         onWheel={(e) => e.preventDefault()}
         type="number"
         inputMode="numeric"
-        className={`bg-transparent outline-none text-5xl font-light text-center w-64 caret-[#646669] transition-colors ${getInputColor()}`}
+        className={`bg-transparent outline-none text-3xl sm:text-4xl md:text-5xl font-light text-center w-48 sm:w-56 md:w-64 caret-[#646669] transition-colors ${getInputColor()}`}
         placeholder=""
         style={{ caretColor: '#646669' }}
       />

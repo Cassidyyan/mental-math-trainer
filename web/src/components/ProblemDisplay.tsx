@@ -7,7 +7,7 @@ interface ProblemDisplayProps {
 export function ProblemDisplay({ problem }: ProblemDisplayProps) {
   return (
     <div className="text-center">
-      <div className="text-8xl font-light tracking-tight text-[#d1d0c5]">
+      <div className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-light tracking-tight text-[#d1d0c5]">
         {problem.left} {problem.operator} {problem.right}
       </div>
     </div>

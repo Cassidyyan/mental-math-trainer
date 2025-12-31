@@ -91,6 +91,42 @@ export async function getRecentSessions(limit: number = 10): Promise<{
 }
 
 /**
+ * Fetch all sessions for the current user
+ */
+export async function getAllSessions(): Promise<{
+  sessions: SessionRow[];
+  error?: string;
+}> {
+  try {
+    const supabase = createClient();
+    
+    // Check if user is authenticated
+    const { data: { user } } = await supabase.auth.getUser();
+    
+    if (!user) {
+      return { sessions: [], error: "Not authenticated" };
+    }
+
+    // Fetch all sessions ordered by most recent
+    const { data, error } = await supabase
+      .from("sessions")
+      .select("*")
+      .eq("user_id", user.id)
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      console.error("Failed to fetch all sessions:", error);
+      return { sessions: [], error: error.message };
+    }
+
+    return { sessions: (data || []) as SessionRow[] };
+  } catch (error) {
+    console.error("Unexpected error fetching all sessions:", error);
+    return { sessions: [], error: "Unexpected error" };
+  }
+}
+
+/**
  * Get summary statistics for the current user
  */
 export async function getUserStats(): Promise<{

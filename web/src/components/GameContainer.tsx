@@ -231,15 +231,15 @@ export function GameContainer() {
     // Show history view
     if (view === "history") {
       return (
-        <main className="flex flex-col items-center justify-center min-h-screen p-8 bg-[#323437] text-gray-100">
-          <div className="w-full max-w-4xl space-y-12">
+        <main className="flex flex-col items-center justify-center min-h-screen p-4 sm:p-8 bg-[#323437] text-gray-100">
+          <div className="w-full max-w-4xl space-y-8 sm:space-y-12">
             
             {/* Header with back button */}
             <div className="flex items-center justify-between">
-              <h1 className="text-4xl font-medium tracking-wide text-[#d1d0c5]">Session History</h1>
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-medium tracking-wide text-[#d1d0c5]">Session History</h1>
               <button
                 onClick={() => setView("game")}
-                className="px-4 py-2 bg-transparent border border-[#a1a3a4]/20 text-[#a1a3a4] rounded hover:border-[#a1a3a4]/40 hover:bg-[#a1a3a4]/5 transition-all duration-200 text-sm"
+                className="px-3 sm:px-4 py-1.5 sm:py-2 bg-transparent border border-[#a1a3a4]/20 text-[#a1a3a4] rounded hover:border-[#a1a3a4]/40 hover:bg-[#a1a3a4]/5 transition-all duration-200 text-xs sm:text-sm"
               >
                 Back to Game
               </button>
@@ -255,12 +255,12 @@ export function GameContainer() {
     
     // Show game setup view
     return (
-      <main className="flex flex-col items-center justify-center min-h-screen p-8 bg-[#323437] text-gray-100">
-        <div className="w-full max-w-4xl space-y-20">
+      <main className="flex flex-col items-center justify-center min-h-screen p-4 sm:p-8 bg-[#323437] text-gray-100">
+        <div className="w-full max-w-4xl space-y-12 sm:space-y-20">
           
           {/* Header */}
           <div className="text-center">
-            <h1 className="text-5xl font-medium tracking-wide text-[#d1d0c5]">MindMath</h1>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-wide text-[#d1d0c5]">MindMath</h1>
           </div>
 
           {/* Configuration Block */}
@@ -276,11 +276,11 @@ export function GameContainer() {
           {/* Instruction Text */}
           <div className="text-center space-y-4">
             <p className="text-xs text-[#a1a3a4] opacity-60 tracking-widest">press 
-                <span className="bg-[#a1a3a4]/10 px-2 py-0.5 rounded">enter</span> or 
-                <span className="bg-[#a1a3a4]/10 px-2 py-0.5 rounded">space</span> to start</p>
+                <span className="bg-[#a1a3a4]/10 px-1.5 sm:px-2 py-0.5 rounded mx-1">enter</span> or 
+                <span className="bg-[#a1a3a4]/10 px-1.5 sm:px-2 py-0.5 rounded mx-1">space</span> to start</p>
             <button
               onClick={() => setView("history")}
-              className="text-xs px-4 py-2 bg-transparent border border-[#a1a3a4]/20 text-[#a1a3a4] rounded hover:border-[#a1a3a4]/40 hover:bg-[#a1a3a4]/5 transition-all duration-200"
+              className="text-xs px-3 sm:px-4 py-1.5 sm:py-2 bg-transparent border border-[#a1a3a4]/20 text-[#a1a3a4] rounded hover:border-[#a1a3a4]/40 hover:bg-[#a1a3a4]/5 transition-all duration-200"
             >
               View History
             </button>
@@ -294,8 +294,8 @@ export function GameContainer() {
   // RENDER: Running State (Active Test)
   if (gameState === "running") {
     return (
-      <main className="flex flex-col items-center justify-center min-h-screen p-8 bg-[#323437]">
-        <div className="w-full max-w-4xl space-y-20">
+      <main className="flex flex-col items-center justify-center min-h-screen p-4 sm:p-8 bg-[#323437]">
+        <div className="w-full max-w-4xl space-y-12 sm:space-y-20">
           
           <Timer timeLeft={timeLeft} />
 
@@ -320,16 +320,16 @@ export function GameContainer() {
         </div>
 
         {/* Hints */}
-        <div className="absolute bottom-8 text-xs text-[#a1a3a4] opacity-50 text-center space-y-1">
-          <div className="flex justify-center gap-8">
+        <div className="absolute bottom-4 sm:bottom-8 text-xs text-[#a1a3a4] opacity-50 text-center space-y-1 px-4">
+          <div className="flex flex-wrap justify-center gap-4 sm:gap-8">
             <div>
-            <span className="bg-[#a1a3a4]/10 px-2 py-1 rounded">tab</span> - skip problem
+            <span className="bg-[#a1a3a4]/10 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded text-[10px] sm:text-xs">tab</span> <span className="text-[10px] sm:text-xs">- skip problem</span>
             </div>
             <span>
-              <span className="bg-[#a1a3a4]/10 px-2 py-1 rounded">F</span> - finish test
+              <span className="bg-[#a1a3a4]/10 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded text-[10px] sm:text-xs">F</span> <span className="text-[10px] sm:text-xs">- finish test</span>
             </span>
             <span>
-              <span className="bg-[#a1a3a4]/10 px-2 py-1 rounded">esc</span> - exit
+              <span className="bg-[#a1a3a4]/10 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded text-[10px] sm:text-xs">esc</span> <span className="text-[10px] sm:text-xs">- exit</span>
             </span>
           </div>
         </div>
@@ -340,12 +340,12 @@ export function GameContainer() {
   // RENDER: Finished State (Results Screen)
   if (gameState === "finished") {
     return (
-      <main className="flex flex-col items-center justify-center min-h-screen p-8 bg-[#323437]">
-        <div className="w-full max-w-2xl space-y-10">
+      <main className="flex flex-col items-center justify-center min-h-screen p-4 sm:p-8 bg-[#323437]">
+        <div className="w-full max-w-2xl space-y-8 sm:space-y-10">
           
           {/* Header */}
           <div className="text-center">
-            <h1 className="text-4xl font-medium text-[#d1d0c5]">TEST COMPLETE</h1>
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-medium text-[#d1d0c5]">TEST COMPLETE</h1>
           </div>
 
           {/* Stats */}
@@ -368,12 +368,12 @@ export function GameContainer() {
           <div className="text-center space-y-3">
             <button
               onClick={restartTest}
-              className="px-6 py-2 bg-transparent border border-[#a1a3a4]/20 text-[#a1a3a4] rounded-lg hover:border-[#a1a3a4]/40 hover:bg-[#a1a3a4]/5 transition-all duration-200 text-sm"
+              className="px-4 sm:px-6 py-1.5 sm:py-2 bg-transparent border border-[#a1a3a4]/20 text-[#a1a3a4] rounded-lg hover:border-[#a1a3a4]/40 hover:bg-[#a1a3a4]/5 transition-all duration-200 text-xs sm:text-sm"
             >
               Restart Test
             </button>
             <p className="text-xs text-[#a1a3a4] opacity-50 tracking-widest animate-pulse">
-              press <span className="bg-[#a1a3a4]/10 px-2 py-0.5 rounded">enter</span> or <span className="bg-[#a1a3a4]/10 px-2 py-0.5 rounded">space</span>
+              press <span className="bg-[#a1a3a4]/10 px-1.5 sm:px-2 py-0.5 rounded mx-1">enter</span> or <span className="bg-[#a1a3a4]/10 px-1.5 sm:px-2 py-0.5 rounded mx-1">space</span>
             </p>
           </div>
 

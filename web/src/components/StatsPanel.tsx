@@ -21,16 +21,18 @@ export function StatsPanel({
   if (gameState === "running") {
     return (
       <div className="flex justify-center">
-        <div className="bg-[#2a2c2e] px-8 py-4 rounded-lg flex gap-8 text-sm">
-          <div className="flex items-center gap-2">
+        <div className="bg-[#2a2c2e] px-4 sm:px-6 md:px-8 py-3 sm:py-4 rounded-lg flex gap-4 sm:gap-6 md:gap-8 text-xs sm:text-sm">
+          <div className="flex items-center gap-1 sm:gap-2">
             <span className={`font-medium tabular-nums transition-colors duration-150 ${feedback === "correct" ? "text-[#d1d0c5]" : "text-[#a1a3a4] opacity-70"}`}>{correct}</span>
-            <span className="text-[#a1a3a4] opacity-60">correct</span>
+            <span className="text-[#a1a3a4] opacity-60 hidden sm:inline">correct</span>
+            <span className="text-[#a1a3a4] opacity-60 sm:hidden">✓</span>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1 sm:gap-2">
             <span className={`font-medium tabular-nums transition-colors duration-150 ${feedback === "incorrect" ? "text-[#ca4754]" : "text-[#a1a3a4] opacity-70"}`}>{total - correct}</span>
-            <span className="text-[#a1a3a4] opacity-60">wrong</span>
+            <span className="text-[#a1a3a4] opacity-60 hidden sm:inline">wrong</span>
+            <span className="text-[#a1a3a4] opacity-60 sm:hidden">✗</span>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1 sm:gap-2">
             <span className="font-medium tabular-nums text-[#a1a3a4] opacity-70">{total}</span>
             <span className="text-[#a1a3a4] opacity-60">total</span>
           </div>
@@ -45,7 +47,7 @@ export function StatsPanel({
     if (total === 0) {
       return (
         <div className="text-center space-y-4">
-          <div className="text-2xl text-[#a1a3a4] opacity-60">
+          <div className="text-xl sm:text-2xl text-[#a1a3a4] opacity-60">
             No problems completed
           </div>
           <div className="text-sm text-[#a1a3a4] opacity-50">
@@ -84,15 +86,15 @@ export function StatsPanel({
         </div>
 
         {/* Primary Stats - Accuracy larger, PPM smaller */}
-        <div className="grid grid-cols-2 gap-16 max-w-lg mx-auto">
+        <div className="grid grid-cols-2 gap-8 sm:gap-12 md:gap-16 max-w-lg mx-auto">
           <div className="text-center space-y-2">
-            <div className={`text-7xl font-medium tabular-nums ${getAccuracyColor()}`}>
+            <div className={`text-5xl sm:text-6xl md:text-7xl font-medium tabular-nums ${getAccuracyColor()}`}>
               {accuracyNum === 100 ? '100' : accuracy}%
             </div>
             <div className="text-xs uppercase tracking-widest text-[#a1a3a4] opacity-70">accuracy</div>
           </div>
           <div className="text-center space-y-2">
-            <div className="text-5xl font-light text-[#a1a3a4] opacity-60 tabular-nums">{ppm}</div>
+            <div className="text-3xl sm:text-4xl md:text-5xl font-light text-[#a1a3a4] opacity-60 tabular-nums">{ppm}</div>
             <div className="text-xs uppercase tracking-widest text-[#a1a3a4] opacity-50">
               <div>ppm</div>
               <div className="text-[10px] normal-case opacity-60 mt-1">problems per minute</div>
@@ -105,18 +107,18 @@ export function StatsPanel({
 
         {/* Secondary Stats - Improved readability */}
         <div className="flex justify-center">
-          <div className="bg-[#2a2c2e] px-10 py-5 rounded-lg space-y-4 w-full max-w-md text-sm">
+          <div className="bg-[#2a2c2e] px-6 sm:px-8 md:px-10 py-4 sm:py-5 rounded-lg space-y-3 sm:space-y-4 w-full max-w-md text-xs sm:text-sm">
             <div className="flex justify-between items-center">
               <span className="text-[#a1a3a4] opacity-60 uppercase tracking-wider text-xs">problems</span>
-              <span className="font-medium text-[#a1a3a4] text-lg tabular-nums">{total}</span>
+              <span className="font-medium text-[#a1a3a4] text-base sm:text-lg tabular-nums">{total}</span>
             </div>
             <div className="flex justify-between items-center">
               <span className="text-[#a1a3a4] opacity-60 uppercase tracking-wider text-xs">correct</span>
-              <span className="font-medium text-[#a1a3a4] text-lg tabular-nums">{correct}</span>
+              <span className="font-medium text-[#a1a3a4] text-base sm:text-lg tabular-nums">{correct}</span>
             </div>
             <div className="flex justify-between items-center">
               <span className="text-[#a1a3a4] opacity-60 uppercase tracking-wider text-xs">incorrect</span>
-              <span className="font-medium text-[#a1a3a4] text-lg tabular-nums">{total - correct}</span>
+              <span className="font-medium text-[#a1a3a4] text-base sm:text-lg tabular-nums">{total - correct}</span>
             </div>
           </div>
         </div>
